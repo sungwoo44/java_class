@@ -57,4 +57,11 @@ public class A11StirngMethod {
         .     int len = message.length();
               char ch = messgage.charAt();
          */
+
+         //240102 복습
+         /*입력 -> 처리 -> 출력의 과정을 항상 생각하자 .
+          * 문자열 매소드에도 출력을 생각해 볼수 있습니다. 입력은 메소드의 인자, 출력은 메소드의 리턴
+            단, messgae.charAt(1)를 예시로 하면 message 는 메소드의 실행 주인,주체,오너
+            리턴이 없는 메소드도 존재 (void) 로 표시 
+          */
 }
