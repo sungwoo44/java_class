@@ -4,10 +4,13 @@ import java.util.Arrays;
 
 public class Score {
     
+    //인스턴스 필드 
     private String name;        //학생 이름
     private int grade;          //학년
     private int[] jumsues;      // 점수들이 저장될 배열
     
+    //인스턴스 메소드: 인스턴스 필드를 사용하는 처리를 합니다. 
+
     // Score(){
     // }//배열의 크기는 학년마다 다를수 있음/
     // Score(String name, int grade, int[]jumsues){
