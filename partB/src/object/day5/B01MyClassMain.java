@@ -1,5 +1,7 @@
 package object.day5;
 
+
+
 import java.util.Arrays;
 
 public class B01MyClassMain {
@@ -15,7 +17,7 @@ public class B01MyClassMain {
         System.out.println("my1.field1:"+my1.field1);
         System.out.println("my1.field2:"+my1.field2);
         System.out.println("my1.field3:"+my1.field3);
-        ` 
+        
         
         my1.field1="hi";
         my1.field2=123;
@@ -41,6 +43,13 @@ public class B01MyClassMain {
          System.out.println("my2.field3 배열의 요소값:"+Arrays.toString(my2.field3));
          System.out.println("my2.field3 해시코드:"+my2.hashCode());
 
+         MyClass2 my3 = new MyClass2();
 
+        // MyClass1 err = new MyClass2();  //오류: 객체의 타입과 변수의 타입이 불일치 
+
+        // 오류! 이유!  private!!   MyClass2 클래스 외에는 사용할수 없는 필드.
+        // System.out.println("my3.field1:"+my3.field1);
+        // System.out.println("my3.field2:"+my3.field2);
+        // System.out.println("my3.field3:"+my3.field3);
     } 
 }
