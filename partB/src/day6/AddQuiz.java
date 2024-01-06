@@ -3,26 +3,39 @@ package day6;
 import java.util.Random;
 
 class Addquiz {
-    private int num1;
-    private int num2;
-    private int answer;
+    private int data1;
+    private int data2;
+    private int userAnswer;
 
-    public Addquiz() {
-        Random random = new Random();
-        this.num1 = random.nextInt(90) + 10; // 10 이상 99 이하의 난수
-        this.num2 = random.nextInt(90) + 10; // 10 이상 99 이하의 난수
-        this.answer = this.num1 + this.num2;
+
+    public void setUserAnswer(int userAnswer) {
+        this.userAnswer = userAnswer;
     }
 
-    public String getProblem() {
-        return num1 + " + " + num2 + " = ?";
+    public int getNum1() {
+        return this.data1;
+    }
+    
+    public int getNum2() {
+        return this.data2;
+    }
+    
+    public int getUserAnswer() {
+        return this.userAnswer;
+    }
+    
+    public Addquiz(int data1, int data2) {
+        this.data1 = data1;
+        this.data2 = data2;
     }
 
-    public int getAnswer() {
-        return answer;
+    public boolean isRight(int userAnswer){
+        return (data1 + data2)==getUserAnswer(); 
     }
 
-     private static boolean checkAnswer(Addquiz problem, int userAnswer) {
-        return userAnswer == problem.getAnswer();
+    public char isRight(){
+        return getUserAnswer()==(getNum1() + getNum2()) ? 'O' : 'X'; 
     }
+    
+    
 }
