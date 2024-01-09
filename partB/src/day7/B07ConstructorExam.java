@@ -34,7 +34,7 @@ public class B07ConstructorExam {
         System.out.println("message == str2? "+ (message == str2));  //'new' 연산으로 생성된 객체는 메모리를 새로 할당!     false!!!
 
         // 문자열 내용 비교 : equals 메소드
-        System.out.println("message.equals(temp)"+message.equals(temp));
+        System.out.println("message.equals(temp)"+message.equals(temp)); //내용비교!
         System.out.println("message.equals(str2)"+message.equals(str2));
 
         

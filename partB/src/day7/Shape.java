@@ -30,7 +30,7 @@ public class Shape {
 		
 		//  접근한정자 테스트용 인스턴스 필드
 		protected String etc;			// 자식에서  set생성 가능하도록  protected!!
-		int accessModifier;
+		int accessModifier;				//접근 한정자 없는 경우 - default
 		public int border;
 		
 		
@@ -80,7 +80,17 @@ public class Shape {
 			System.out.println("final 메소드 테스트-" + shapeName + "의 너비:" + width +",높이:" 
 					+height + ",면적:" + calculateArea());
 		}
+		
+		
+		// day8 Object  클래스의 toString 메소드를 오버라이드
+		@Override
+		public String toString() {
+			return "Shape [도형이름=" + shapeName + ", 너비=" + width + ", 높이=" + height +  ",면적=" + calculateArea()+"]";
+		}
 
+
+		
+		
 	
 		
 }

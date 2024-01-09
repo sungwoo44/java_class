@@ -80,7 +80,18 @@ public class B12Polymorphsim {
             }
         }
 
-        
+        //Up Casting 
+            Shape sh = new Diamond();
+              
 
+        //Down Casting
+
+            Diamond diamond =new (Diamond)sh;
+
+            //  ㄴ sh의 실제 객체가 다운 캐스팅하려는 타입인지 검사 필수. (instanceof 연산으로 검사)
+            // ex)Triangle, Square
+            // 자식객체의 인스턴스 메소드 iAmDiamond 는 반드시 다운캐스팅을 해야 실행 가능
+            diamond.iAmDiamond();
+            
     }
 }
