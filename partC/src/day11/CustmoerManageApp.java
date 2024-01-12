@@ -132,7 +132,7 @@ public class CustmoerManageApp {
                 System.out.println(String.format("%-10s %-10s %5d",PH.get(i).getName(), PH.get(i).getPhone(),PH.get(i).getGroup()));
                 System.out.print("삭제는 엔터, 취소는 n 을 입력하세요 >>");
                 if(System.console().readLine().equals("n"))
-                continue;
+                return;
                 else{
                     
                     PH.remove(i);
@@ -161,7 +161,7 @@ public class CustmoerManageApp {
                 System.out.println(String.format("%-10s %-10s %5d",PH.get(i).getName(), PH.get(i).getPhone(),PH.get(i).getGroup()));
                 System.out.print("계속 수정은 엔터, 취소는 n 을 입력하세요 >>");
                 if(System.console().readLine().equals("n"))
-                continue;
+                return;
                 else{
                     System.out.println(" ☞ 수정할 번호 입력 >> ");
                     String afPhone =System.console().readLine();
