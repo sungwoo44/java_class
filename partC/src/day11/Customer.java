@@ -26,7 +26,10 @@ public class Customer {
     public int getGroup() {
         return group;
     }
+    
     //setter X
+
+
     public void modify(String phone,int group){
 
         this.phone = phone;

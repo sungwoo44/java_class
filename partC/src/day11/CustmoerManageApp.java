@@ -56,7 +56,7 @@ public class CustmoerManageApp {
         }
 
     }
-
+    //초기 기본값 설정
     private void initialize() {
         PH.add(new Customer("momo", "010-1111-1111", 1));
         PH.add(new Customer("dahy", "010-2222-2222", 1));
@@ -64,7 +64,7 @@ public class CustmoerManageApp {
         PH.add(new Customer("hahy", "010-4444-4444", 2));
 
     }
-
+    //번호 등록 메소드
     private void addNumber() {
 
         System.out.println("\n"+"  ☞ 1.전화번호 등록☎");
@@ -80,12 +80,14 @@ public class CustmoerManageApp {
         PH.add(new Customer(name, phone, group));
     }
 
+    //번호 검색 메소드
     private void searchNumber() {
         System.out.println("\n"+"  ☞ 2.전화번호 검색☏ (이름/그룹)"); 
         System.out.print("① 이름 조회 \n② 번호 조회 \n③ 그룹 조회 \n☞ 번호 입력 >>");
         String findName= null;
         String findNum = null;
-        List<Customer> list = null;   
+        int findGroup = 0;
+        List<Customer> list=null;   
         switch (System.console().readLine()) {
             case "1":
                 System.out.print("이름을 입력해주세요>>>>");        
@@ -93,9 +95,14 @@ public class CustmoerManageApp {
                 list = searchAllName(findName);
                 break;
             case "2":
-                 System.out.print("번호을 입력해주세요>>>>");        
+                 System.out.print("전화번호을 입력해주세요>>>>");        
                 findNum = System.console().readLine();
                 list = searchAllNumber(findNum);
+                break;
+            case "3":
+                 System.out.print("그룹번호을 입력해주세요>>>>");        
+                findGroup = Integer.parseInt(System.console().readLine());
+                list = searchAllGroup(findGroup);
                 break;
             default:
                 System.out.println("\n숫자를 잘못 누르셨습니다!!\n");
@@ -111,8 +118,10 @@ public class CustmoerManageApp {
 
     
     }
+
+    //번호 삭제 메스도
+    boolean isfind = false;
     private void removeNumber() {
-        boolean isfind = false;
         System.out.println("  ☞ 3.전화번호 삭제☎");
         System.out.print("이름을 입력해주세요>>>>");
         String remove = System.console().readLine();  
@@ -123,8 +132,9 @@ public class CustmoerManageApp {
                 System.out.println(String.format("%-10s %-10s %5d",PH.get(i).getName(), PH.get(i).getPhone(),PH.get(i).getGroup()));
                 System.out.print("삭제는 엔터, 취소는 n 을 입력하세요 >>");
                 if(System.console().readLine().equals("n"))
-                    continue;
+                continue;
                 else{
+                    
                     PH.remove(i);
                     System.out.println("\t삭제완료");
                 }
@@ -134,8 +144,8 @@ public class CustmoerManageApp {
             System.out.println("\n찾으시는 이름이 존재하지 않습니다.\n");
         }
     }
-
     
+    //출력 메소드
     private void printNumber() {
         System.out.println("\n\t:::::번호출력:::::");
         System.out.println(String.format("%-10s %-10s %-10s","이름","전화번호","그룹"));
@@ -144,53 +154,76 @@ public class CustmoerManageApp {
     
     private void modifyNumber() {
         System.out.println("  ☞ 4.전화번호 수정☏");
-        System.out.print("① 이름 수정 \n② 번호 수정 \n③ 그룹 수정 \n☞ 번호 입력 >>");
-        String rePhone = System.console().readLine();
-        int reGroup = Integer.parseInt(System.console().readLine());
+        System.out.print(" ☞ 번호 입력 >> ");
+        String bePhone = System.console().readLine();
         for(int i =0; i<PH.size();i++){
-            if(PH.get(i).getPhone().equals(rePhone)){
-                 PH.get(i).modify(rePhone, reGroup);
+            if(PH.get(i).getPhone().equals(bePhone)){
+                System.out.println(String.format("%-10s %-10s %5d",PH.get(i).getName(), PH.get(i).getPhone(),PH.get(i).getGroup()));
+                System.out.print("계속 수정은 엔터, 취소는 n 을 입력하세요 >>");
+                if(System.console().readLine().equals("n"))
+                continue;
+                else{
+                    System.out.println(" ☞ 수정할 번호 입력 >> ");
+                    String afPhone =System.console().readLine();
+                    System.out.println(" ☞ 수정할 그룹 입력 >> ");
+                    int reGroup = Integer.parseInt(System.console().readLine());
+                    PH.get(i).modify(afPhone, reGroup);
+                    System.out.println("\t수정완료");
+                    
+                    System.out.println(String.format("%-10s %-10s %5d\n",PH.get(i).getName(), PH.get(i).getPhone(),PH.get(i).getGroup()));
 
+                }
+                
             }
         }
     }
     
     
-
+    
     private void printNumber(List<Customer> list) {
-       // System.out.println("   \n\t:::::조회결과:::::");
+        // System.out.println("   \n\t:::::조회결과:::::");
         for(Customer PH : list){
             System.out.println(String.format("%-10s %-10s %5d",PH.getName(), PH.getPhone(),PH.getGroup()));
         }
         System.out.println();
     }
-
+    
     private List<Customer> searchAllName(String findName) {
         System.out.println("   \n\t:::::조회결과:::::");
         List<Customer> clist = new ArrayList<>();
         System.out.println(String.format("%-10s %-10s %-10s","이름","전화번호","그룹"));
         for(Customer namelist : PH){
             if(namelist.getName().equals(findName)){
-            System.out.println(String.format("%-10s %-10s %5d",namelist.getName(), namelist.getPhone(),namelist.getGroup()));
+                System.out.println(String.format("%-10s %-10s %5d",namelist.getName(), namelist.getPhone(),namelist.getGroup()));
             }
         }
         return clist;
-
+        
     }
-
-    private List<Customer> searchAllNumber(String findName) {
+    
+    private List<Customer> searchAllNumber(String findNum) {
         List<Customer> nlist = new ArrayList<>();
         System.out.println(String.format("%-10s %-10s %-10s","이름","전화번호","그룹"));
         for(Customer numlist : PH){
-            if(numlist.getPhone().equals(findName)){
-            System.out.println(String.format("%-10s %-10s %5d",numlist.getName(), numlist.getPhone(),numlist.getGroup()));
+            if(numlist.getPhone().equals(findNum)){
+                System.out.println(String.format("%-10s %-10s %5d",numlist.getName(), numlist.getPhone(),numlist.getGroup()));
             }
         }
         return nlist;
     }
-
-
-
+    
+    private List<Customer> searchAllGroup(int findGroup) {
+ List<Customer> llist = new ArrayList<>();
+        System.out.println(String.format("%-10s %-10s %-10s","이름","전화번호","그룹"));
+        for(Customer grouplist : PH){
+            if(grouplist.getGroup()==findGroup){
+                System.out.println(String.format("%-10s %-10s %5d",grouplist.getName(), grouplist.getPhone(),grouplist.getGroup()));
+            }
+        }
+        return llist;
+    }
+    
+    
     public static void main(String[] args) {
         CustmoerManageApp app = new CustmoerManageApp();
         app.start();
