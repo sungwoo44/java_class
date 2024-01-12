@@ -13,7 +13,7 @@ public class JavaWordApp {
 
         //2. 단어 추가 
         JavaWord newWord = new JavaWord("public", "공용의", 1);
-        myBook.addWord(newWord);
+       // myBook.addWord(newWord);
         myBook.addWord(new JavaWord("private", "개인적인", 1));
         myBook.addWord(new JavaWord("protected", "보호된", 1));
         myBook.addWord(new JavaWord("Iterate", "반복하는", 1));
@@ -55,7 +55,17 @@ public class JavaWordApp {
 
 
         //4. 단어 삭제
+        String removeText="";
 
+        while (true) {
+
+            if(removeText=="end")break;
+
+            myBook.removeWord(removeText);;
+        //  JavaWord result = myBook.removeWord(removeText);;
+        //  System.out.println(removeText + "조회 결과 : " + result);
+            
+        }
 
     
     }
