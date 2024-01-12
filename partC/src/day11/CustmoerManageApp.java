@@ -120,12 +120,12 @@ public class CustmoerManageApp {
     }
 
     //번호 삭제 메스도
-    boolean isfind = false;
     private void removeNumber() {
+        boolean isfind = false;
         System.out.println("  ☞ 3.전화번호 삭제☎");
         System.out.print("이름을 입력해주세요>>>>");
         String remove = System.console().readLine();  
-        System.out.println("   \n:::::조회결과:::::");
+        System.out.println("   \n  :::::조회결과:::::");
         for(int i = 0; i< PH.size(); i++){
             if(PH.get(i).getName().equals(remove)){
                 isfind =true;
@@ -153,11 +153,13 @@ public class CustmoerManageApp {
     }
     
     private void modifyNumber() {
+        boolean isfind = false;
         System.out.println("  ☞ 4.전화번호 수정☏");
         System.out.print(" ☞ 번호 입력 >> ");
         String bePhone = System.console().readLine();
         for(int i =0; i<PH.size();i++){
             if(PH.get(i).getPhone().equals(bePhone)){
+                isfind =true;
                 System.out.println(String.format("%-10s %-10s %5d",PH.get(i).getName(), PH.get(i).getPhone(),PH.get(i).getGroup()));
                 System.out.print("계속 수정은 엔터, 취소는 n 을 입력하세요 >>");
                 if(System.console().readLine().equals("n"))
@@ -175,6 +177,9 @@ public class CustmoerManageApp {
                 }
                 
             }
+        }
+        if(!isfind){
+            System.out.println("\n찾으시는 번호가 존재하지 않습니다.\n");
         }
     }
     
