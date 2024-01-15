@@ -59,7 +59,9 @@ public class JavaWordApp_V2 {
     // start 메소드 프로그램 실행 내용을 코딩
 
     private void initialize() {
-        words.add(new JavaWord("private", "개인적인", 1));
+        words.add(new JavaWord("private", "개인", 1));
+        words.add(new JavaWord("private", "개인적인", 2));
+        words.add(new JavaWord("private", "개인적", 3));
         words.add(new JavaWord("protected", "보호된", 1));
         words.add(new JavaWord("Iterate", "반복하는", 1));
         words.add(new JavaWord("collection", "수집", 1));
@@ -248,13 +250,14 @@ public class JavaWordApp_V2 {
         for (int i = 0; i < words.size(); i++) {
             if (words.get(i).getEnglish().equals(remove)) {
                 isfind = true;
-                System.out.println("인덱스 " + i + "에서 단어를 찾았습니다.");
+                System.out.println("인덱스 " + i + "에서 단어를 찾았습니다."+words.get(i));
                 System.out.print("삭제는 엔터, 취소는 n 을 입력하세요 >>");
                 if (System.console().readLine().equals("n"))
                     continue;
                 else {
-                    words.remove(i);
+                    words.remove(i);                    // 삭제후 다음인덱스는 -1  해주어야 함!!!
                     System.out.println("삭제완료!");
+                    i--;
                 }
             }
 
