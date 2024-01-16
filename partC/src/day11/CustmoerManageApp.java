@@ -89,8 +89,7 @@ public class CustmoerManageApp {
         System.out.print("① 이름 조회 \n② 번호 조회 \n③ 그룹 조회 \n☞ 번호 입력 >>");
         String findName= null;
         String findNum = null;
-        int findGroup = 0;
-        List<Customer> list=new ArrayList<>();   
+        List<Customer> list = null;   
         switch (System.console().readLine()) {
             case "1":
                 System.out.print("이름을 입력해주세요>>>>");        
@@ -204,8 +203,7 @@ public class CustmoerManageApp {
         System.out.println(String.format("%-10s %-10s %-10s","이름","전화번호","그룹"));
         for(Customer namelist : PH){
             if(namelist.getName().equals(findName)){
-                System.out.println(String.format("%-10s %-10s %5d",namelist.getName(), namelist.getPhone(),namelist.getGroup()));
-                clist.add(namelist);
+            System.out.println(String.format("%-10s %-10s %5d",namelist.getName(), namelist.getPhone(),namelist.getGroup()));
             }
         }
         return clist;
