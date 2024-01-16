@@ -13,7 +13,7 @@ public class JavaWord {
 
     @Override
     public String toString() {
-        return "JavaWord [english=" + english + ", korean=" + korean + ", level=" + level + "]";
+        return "" + english + "," + korean + "," + level + "";
     }
     
     public String getEnglish() {
