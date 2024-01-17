@@ -35,8 +35,8 @@ public class D07ImageFileCopy {
         FileInputStream fis = null;
         FileOutputStream fos = null;
         try{
-            fis = new FileInputStream("C:\\Users\\Administrator\\Downloads\\고윤정.jpg");
-            fos = new FileOutputStream("고윤정1.jpg");
+            fis = new FileInputStream("D:\\upload\\고윤정1.jpg");
+            fos = new FileOutputStream("고윤정5.jpg");
             
             while((b=fis.read()) != -1){      //1바이트 씩 복사하기(파일fis에서 파일fos 로)
                 fos.write(b);

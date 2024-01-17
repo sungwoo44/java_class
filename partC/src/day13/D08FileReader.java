@@ -98,7 +98,7 @@ public class D08FileReader {
             System.out.println("파일입력예외 : " + e.getMessage());
             System.out.println();
         }
-        System.out.println("읽어온 라인 수 : "+ count);
+        System.out.println("읽어온 라인 수 : "+ count);x
 
     }
 
