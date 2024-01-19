@@ -17,10 +17,22 @@
  * */
 
 CREATE TABLE tbl_javaword(
-idx NUMBER(8),
-english varchar2(100),
-korean nvarchar2(100),
-step number(1) );
+idx NUMBER(8) PRIMARY KEY, -- UNIQUE & NOT NULL 
+english varchar2(100) UNIQUE NOT null,
+korean nvarchar2(100)NOT null,
+step number(1) CHECK (step BETWEEN 1 AND 4) 
+);
+
+
+INSERT INTO TBL_JAVAWORD tj VALUES(1,'public','공용의',1);
+--INSERT INTO TBL_JAVAWORD tj VALUES(1,'private','사적인',1); --  오류 무결성 제약조건
+--INSERT INTO TBL_JAVAWORD tj VALUES(2,'public','사적인',1); --  오류 무결성 제약조건
+--INSERT INTO TBL_JAVAWORD tj VALUES(null,'public','사적인',1); --  오류 프라이머리키  null
+
+
+
+
+
 
 INSERT INTO tbl_javaword values(1,'public','공공의',1);	
 INSERT INTO tbl_javaword values(2,'private','사적인',2);	
@@ -46,5 +58,5 @@ SELECT * FROM  TBL_JAVAWORD WHERE ENGLISH like '%va';  --sh로 끝나는 단어 
 SELECT * FROM  TBL_JAVAWORD WHERE idx BETWEEN 1 and 4;  -- idx=1~4
 SELECT * FROM  TBL_JAVAWORD WHERE ENGLISH < 'banana';  -- 문자도 가능!
 
-
+DROP TABLE TBL_JAVAWORD ;
 
