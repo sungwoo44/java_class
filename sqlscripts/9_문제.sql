@@ -66,3 +66,37 @@ SELECT UPPER(id) "구매회원", sum(ITEM_QUANTITY)"구매한개수" FROM TBL_EX
 SELECT ITEM_CODE "상품코드", max(ITEM_QUANTITY) AS "최댓값" FROM TBL_EXBUY te GROUP BY ITEM_CODE ORDER BY  "최댓값" DESC ; 
 --정재원
 SELECT name FROM TBL_EXCUSTOMER te WHERE  AGE <=33;
+
+
+
+
+
+--구매 테이블에 기본키 만들기 
+--1) 기본키에 들어갈 값은 시퀀스로 만듭니다.  exbuy_pk_seq  시작값 1001
+CREATE SEQUENCE exbuy_pk_seq START WITH 1001;
+ 
+
+--2) 기본키 컬럼명을 buy_idx 로 하여 컬럼 추가 number(8)
+ALTER TABLE tbl_exbuy ADD buy_idx number(8); 
+
+
+
+--3) 기본 행에 적용할 buy_idx 컬럼값을 저장하기. not null & unique
+
+
+
+--4) buy_idx 컬럼에 대하여  primary key 설정
+ALTER TABLE TBL_EXBUY ADD CONSTRAINT tbl_exbuy_pk PRIMARY KEY (buy_idx);
+
+--5) 이제부터 새로운 행을 추가할 때에는 시쿼스 함수로  pk 값을 insert 한다. 
+INSERT INTO tbl_exbuy (buy_idx,id,item_code,item_Quantity)
+ VALUES(exbuy_pk_seq.nextval , 'mina012', 'CJBAb12g' , 5);
+
+
+
+
+
+
+
+
+
