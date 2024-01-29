@@ -48,15 +48,71 @@ INSERT INTO TBL_BUY
 
 --A-5. 총 구매합산 금액이 100000~200000 값인 고객 ID를 조회하시오.(김태완)
 
+WITH saleMoney
+AS
+(SELECT tb.customid, tp.PCODE, QUANTITY, PRICE, QUANTITY*PRICE "금액"
+      FROM TBL_PRODUCT tp ,TBL_BUY tb 
+      WHERE tp.PCODE = tb.PCODE
+)
+SELECT saleMoney.customid,sum("금액")
+FROM saleMoney
+where "금액" BETWEEN 100000 AND 200000
+GROUP BY saleMoney.customid;
+
+
+
+
+
 
 
 /*  B조 */
 --B-1. 20대 나이 고객의 구매 상품 코드와 나이를 나이순으로 정렬 조회 (이대환) /* C조 조이루 */
+SELECT tc.CUSTOM_ID ,tc.AGE ,tb.PCODE 
+FROM TBL_CUSTOM tc 
+JOIN TBL_BUY tb  
+ON tc.CUSTOM_ID =tb.CUSTOMID 
+WHERE tc.AGE BETWEEN 20 AND 29 
+ORDER BY 2 ;
 
 
 --B-2. 나이가 가장 많은 고객이 상품을 구매한 횟수를 조회하세요.-서브쿼리 사용하기 (김승한)
 
+SELECT tc.CUSTOMID
+FROM tc.customid ,(SELECT tc.CUSTOM_ID  ,max(tc.AGE)
+	FROM TBL_BUY tb 
+	JOIN TBL_CUSTOM tc 
+	ON tb.CUSTOMID = tc.CUSTOM_ID
+	GROUP BY tc.CUSTOM_ID); 
+
+
+SELECT tc.CUSTOM_ID  ,max(tc.AGE)
+	FROM TBL_BUY tb 
+	JOIN TBL_CUSTOM tc 
+	ON tb.CUSTOMID = tc.CUSTOM_ID
+	GROUP BY tc.CUSTOM_ID;
+
+
 --B-3. 2023년 하반기 구매금액을 고객ID별로 조회하시오. 금액이 높은 순서부터 조회하세요. (노희영)
+
+
+SELECT tb.CUSTOMID ,sum(tb.QUANTITY * tp.PRICE)
+FROM TBL_PRODUCT tp 
+JOIN TBL_BUY tb 
+ON tp.PCODE = tb.PCODE
+JOIN TBL_CUSTOM tc 
+ON tc.CUSTOM_ID =tb.CUSTOMID 
+WHERE to_char(BUY_DATE,'yyyy')<'2024' AND to_char(BUY_DATE,'yyyy-dd')>'2023-06'
+GROUP BY tb.CUSTOMID
+ORDER BY 2;
+
+
+
+
+
+
+
+
+
 
 
 --B-4. 2024년에 구매횟수가 1회 이상인 고객id, 고객이름, 나이,이메일을 조회하세요.(이재훈)
@@ -85,12 +141,22 @@ SELECT tp.PCODE, tp.PNAME "상품명", avg(tb.QUANTITY) "평균 구매 개수"
 	;
 
 --C-2. 진라면을 구매한 고객의 이름, 구매수량, 구매날짜를 조회하자. (출제자 : 전예진)
-
+SELECT tc.CUSTOM_ID,tc.NAME,tb.QUANTITY ,tb.BUY_DATE 
+FROM TBL_BUY tb 
+JOIN TBL_CUSTOM tc 
+ON tb.CUSTOMID = tc.CUSTOM_ID 
+WHERE PCODE ='JINRMn5';
 
 --C-3. B조 1번 유사 문제 (조이루)
 
 --C-4. 2023년에 팔린 상품의 이름과 코드,총 판매액 그리고 총 판매개수를 상품코드 순서로 정렬하여 조회하시오. (정제원)
-
+SELECT total.PCODE,PNAME, SUM(QUANTITY) "총 구매개수", SUM("총 가격")
+FROM (
+    SELECT tp.PCODE,PNAME, QUANTITY, QUANTITY * PRICE "총 가격", BUY_DATE  
+    FROM TBL_PRODUCT tp, TBL_BUY tb 
+    WHERE tp.PCODE = tb.PCODE AND to_char(BUY_DATE, 'yyyy') = '2023'
+) total
+GROUP BY total.PCODE, PNAME;
 --C-5. 'twice'와 'hongGD'는 한집에 살고 있습니다. 이들이 구매한 상품,수량,가격을 조회하세요.-가격이 높은순서부터 정렬 (장성우)
 WITH minaGD
 as(
@@ -117,10 +183,21 @@ SELECT tb.customid, tb.quantity * tp.price  AS sum
 		
 --D-2. 판매 갯수가 가장 많은 순서로 상품(상품코드와 상품이름 그룹화)을 정렬하고 총 팔린 금액을 출력하시오.(한진만)
 -- 	 판매 개수가 같으면 상품 코드 순서로 정렬합니다.			ㄴ 동등 조인으로 조회
+SELECT tp.PCODE,tp.PNAME,tb.QUANTITY,(tb.QUANTITY * tp.PRICE)
+FROM TBL_BUY tb 
+JOIN TBL_PRODUCT tp 
+ON tb.PCODE = tp.PCODE 
+ORDER BY 3 DESC ,1 ;
+
 
 
 --D-3. 진라면을 구매한 고객들의 평균 나이를 제품코드(PCODE)와 함께출력해 주세요.(황병훈)
-
+SELECT tb.PCODE, avg(age)
+FROM TBL_CUSTOM tc 
+JOIN TBL_BUY tb 
+ON tc.CUSTOM_ID = tb.CUSTOMID 
+WHERE tb.PCODE='JINRMn5'
+GROUP BY tb.PCODE;
 
 
 --D-4. 30세 미만 회원별 구매금액을 구하고 회원으로 그룹바이해서 구매금액 합계가 큰 순으로 정렬(조지수)

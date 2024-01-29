@@ -9,8 +9,8 @@ SELECT * FROM p_buy;
 CREATE SEQUENCE pbuy_seq START WITH 1500;
 ALTER TABLE p_buy ADD money number(7) CHECK (money >=10000);	--수량* 가격으로 총구매금액 컬럼생성
 
--- 웹애플리케이션(인터넷 환경) 개발할 때, JDBC 에서 사용자가 원하는 기능 요청 하나에 sql을 1개씩만 실행을 합니다.
---					   프로시저를 이용하면 요청 한번에 대해 많은 SQL을 실행을 할수 있습니다.
+-- 웹애플리케이션(인터넷 환경) 개발할 때, ※JDBC 에서 사용자가 원하는 기능 요청 하나에 sql을 1개씩만 실행을 합니다.
+--					  			  ※프로시저를 이용하면 요청 한번에 대해 많은 SQL을 실행을 할수 있습니다.
 -- 데이베이스관점에는 `무결성`(정확성) 을 유지할 수 있는 방법.
 -- 프로시저에서 트잰잭션을 관리하는 예시 : 최소 구매 금액 10000원 미만이면 트랙젝션을 롤백.
 -- 
@@ -54,7 +54,7 @@ DECLARE
 	vresult varchar2(20);
 BEGIN
 -- 메시지는 'fail' 이고 p_buy 테이블 insert 입력값 없어야 합니다.
---	proc_set_money('twice','SNACK99',1,VRESULT);
+-- proc_set_money('twice','SNACK99',1,VRESULT);
  
 -- 메시지는 'success' 이고 p_buy 테이블 값이 insert 됩니다 .
 	proc_set_money('mina012','SNACK99',3,VRESULT);
