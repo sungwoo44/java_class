@@ -96,7 +96,7 @@ INSERT INTO tbl_exbuy (buy_idx,id,item_code,item_Quantity)
 
 
 
-
+ 
 
 
 
