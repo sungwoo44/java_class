@@ -11,7 +11,23 @@ SELECT CUSTOMID  ,SUM(PRICE * QUANTITY) "구매 금액"
 	AND CUSTOMID ='mina012'
 	GROUP BY CUSTOMID  ;
 
+SELECT CUSTOMID , sum(tb.QUANTITY  * tp.PRICE)
+FROM TBL_PRODUCT tp 
+JOIN TBL_BUY tb 
+ON tp.PCODE  = tb.PCODE  
+AND  CUSTOMID ='mina012'
+GROUP BY CUSTOMID ;
+
+
+
 --A-2. 이름에 '길동'이 들어가는 회원 구매한 상품 구매현황 (권태윤)
+--SELECT CUSTOMID ,tc.NAME,tb.PCODE ,tb.QUANTITY ,tb.BUY_DATE  
+--FROM TBL_CUSTOM tc 
+--JOIN TBL_BUY tb 
+--ON tc.CUSTOM_ID =tb.CUSTOMID 
+--WHERE NAME LIKE '%길동%';
+
+
 SELECT tb.CUSTOMID ,NAME, PCODE ,QUANTITY,BUY_DATE  
 	FROM TBL_BUY tb 
 	JOIN TBL_CUSTOM tc 
@@ -25,6 +41,16 @@ INSERT INTO TBL_BUY
 			VALUES (buy_pk_seq.nextval,'dongL','DOWON123a',2,sysdate);
 			
 --A-3. `25살`이상 고객님들의 `구매`한 `상품명` 조회하기 (강주찬) => 테이블 3개
+--SELECT   tc.CUSTOM_ID ,tc.AGE ,tp.PNAME 
+--FROM TBL_CUSTOM tc 
+--JOIN TBL_BUY tb 
+--ON tc.CUSTOM_ID =tb.CUSTOMID 
+--JOIN TBL_PRODUCT tp 
+--ON tb.PCODE = tp.PCODE 
+--WHERE tc.AGE >25;
+--		
+	
+		
 SELECT CUSTOMID , tc.AGE , PNAME 
 	FROM TBL_CUSTOM tc  
 	JOIN TBL_BUY tb
@@ -34,6 +60,14 @@ SELECT CUSTOMID , tc.AGE , PNAME
 	WHERE tc.AGE > 25;		
 
 --A-4. 상품명에 '사과' 단어가 포함된 상품을 구매한 고객에 대해 상품별 구매금액의 합을 구하기.(고길현)
+--SELECT tb.CUSTOMID ,tb.PCODE ,sum(tp.PRICE*tb.QUANTITY)
+--FROM TBL_PRODUCT tp 
+--JOIN TBL_BUY tb 
+--ON tp.PCODE = tb.PCODE 
+--WHERE tp.PNAME LIKE '%사과%'
+--GROUP BY tb.CUSTOMID ,tb.PCODE;
+
+
 SELECT tb.CUSTOMID , tb.PCODE , sum(QUANTITY*PRICE)
 	FROM TBL_BUY tb 
 	JOIN TBL_PRODUCT tp 
@@ -48,6 +82,22 @@ INSERT INTO TBL_BUY
 
 --A-5. 총 구매합산 금액이 100000~200000 값인 고객 ID를 조회하시오.(김태완)
 
+
+WITH sm
+as
+(SELECT tb.CUSTOMID  , QUANTITY*price "금액"
+	FROM TBL_BUY tb 
+	JOIN TBL_PRODUCT tp 
+	ON tb.PCODE= tp.PCODE )
+SELECT sm.CUSTOMID , sum("금액")				
+FROM sm
+WHERE "금액" BETWEEN 100000 AND 20000
+GROUP BY sm.CUSTOMID; 
+		
+		
+		
+		
+		
 WITH saleMoney
 AS
 (SELECT tb.customid, tp.PCODE, QUANTITY, PRICE, QUANTITY*PRICE "금액"
@@ -67,6 +117,17 @@ GROUP BY saleMoney.customid;
 
 /*  B조 */
 --B-1. 20대 나이 고객의 구매 상품 코드와 나이를 나이순으로 정렬 조회 (이대환) /* C조 조이루 */
+--SELECT tc.CUSTOM_ID,tb.PCODE ,tc.AGE,
+--FROM TBL_CUSTOM tc 
+--JOIN TBL_BUY tb 
+--ON tc.CUSTOM_ID =tb.CUSTOMID  
+--WHERE tc.AGE BETWEEN 20 AND 29
+--ORDER BY 2;
+
+
+
+
+
 SELECT tc.CUSTOM_ID ,tc.AGE ,tb.PCODE 
 FROM TBL_CUSTOM tc 
 JOIN TBL_BUY tb  
@@ -76,23 +137,27 @@ ORDER BY 2 ;
 
 
 --B-2. 나이가 가장 많은 고객이 상품을 구매한 횟수를 조회하세요.-서브쿼리 사용하기 (김승한)
+SELECT count(tb.CUSTOMID)
+FROM TBL_BUY tb
+JOIN TBL_CUSTOM tc2 
+ON tb.CUSTOMID =tc2.CUSTOM_ID 
+WHERE tc2.age=(SELECT max(tc.AGE)FROM TBL_CUSTOM tc ,TBL_BUY tb);
 
-SELECT tc.CUSTOMID
-FROM tc.customid ,(SELECT tc.CUSTOM_ID  ,max(tc.AGE)
-	FROM TBL_BUY tb 
-	JOIN TBL_CUSTOM tc 
-	ON tb.CUSTOMID = tc.CUSTOM_ID
-	GROUP BY tc.CUSTOM_ID); 
-
-
-SELECT tc.CUSTOM_ID  ,max(tc.AGE)
-	FROM TBL_BUY tb 
-	JOIN TBL_CUSTOM tc 
-	ON tb.CUSTOMID = tc.CUSTOM_ID
-	GROUP BY tc.CUSTOM_ID;
+--SELECT tc.CUSTOM_ID  ,max(tc.AGE)
+--	FROM TBL_BUY tb 
+--	JOIN TBL_CUSTOM tc 
+--	ON tb.CUSTOMID = tc.CUSTOM_ID
+--	GROUP BY tc.CUSTOM_ID;
 
 
 --B-3. 2023년 하반기 구매금액을 고객ID별로 조회하시오. 금액이 높은 순서부터 조회하세요. (노희영)
+
+
+
+
+
+
+
 
 
 SELECT tb.CUSTOMID ,sum(tb.QUANTITY * tp.PRICE)
@@ -103,7 +168,7 @@ JOIN TBL_CUSTOM tc
 ON tc.CUSTOM_ID =tb.CUSTOMID 
 WHERE to_char(BUY_DATE,'yyyy')<'2024' AND to_char(BUY_DATE,'yyyy-dd')>'2023-06'
 GROUP BY tb.CUSTOMID
-ORDER BY 2;
+ORDER BY 2 DESC ;
 
 
 
@@ -127,6 +192,13 @@ WHERE CUSTOM_ID IN (
 	); 
 
 --B-5. 고객별-상품별 구매금액을 조회하세요. 정렬도 고객ID,상품코드 오름차순으로 정렬하세요.(이예진)
+SELECT CUSTOMID ,PCODE , sum(price * QUANTITY)"구매금액"
+FROM TBL_CUSTOM tc 
+JOIN TBL_BUY tb 
+ON tc.CUSTOM_ID =tb.CUSTOMID 
+JOIN TBL_PRODUCT tp 
+ON tp.PCODE = tb.PCODE 
+WHERE ;
 
 
 /* C조 */
