@@ -65,4 +65,40 @@ INSERT INTO TBL_BUY_MENU VALUES (burger_seq.nextval, 'jir001', 'TOMA2', 1, sysda
 
 
 
-
+INSERT INTO tbl_members VALUES ('hgd001', '홍길동', 'honggd@gmail.com', '010-1122-3344', 20);
+INSERT INTO tbl_members VALUES ('lmr002', '이몽룡', 'limongryong@gmail.com', '010-2233-4455', 25);
+INSERT INTO tbl_members VALUES ('bhd004', '변학도', 'byeonhakdo@gmail.com', '010-4455-6677', 30);
+INSERT INTO tbl_members VALUES ('hjg005', '허준', 'heojun@gmail.com', '010-5566-7788', 28);
+INSERT INTO tbl_members VALUES ('ybg006', '윤봉길', 'yunbonggil@gmail.com', '010-6677-8899', 27);
+INSERT INTO tbl_members VALUES ('ajg007', '안중근', 'anjunggeun@gmail.com', '010-7788-9900', 31);
+INSERT INTO tbl_members VALUES ('ygs008', '유관순', 'yugwansun@gmail.com', '010-8899-0011', 23);
+INSERT INTO tbl_members VALUES ('lss010', '이순신', 'leesoonsin@gmail.com', '010-0011-2233', 35);
+INSERT INTO tbl_members VALUES ('ssd011', '신사임당', 'shinsaimdang@gmail.com', '010-1122-3344', 26);
+INSERT INTO tbl_members VALUES ('ygi012', '율곡이이', 'yulgok@gmail.com', '010-2233-4455', 32);
+INSERT INTO tbl_members VALUES ('kg014', '김구', 'kimgu@gmail.com', '010-4455-6678', 27);
+INSERT INTO tbl_members VALUES ('ahc015', '안창호', 'anchangho@gmail.com', '010-5566-7789', 28);
+INSERT INTO tbl_members VALUES ('yjs016', '유재석', 'yoojaeseok@gmail.com', '010-6677-8900', 41);
+INSERT INTO tbl_members VALUES ('pms017', '박명수', 'parkmyungsoo@gmail.com', '010-7788-9901', 47);
+INSERT INTO tbl_members VALUES ('jhd018', '정형돈', 'jungmyungdon@gmail.com', '010-8899-0012', 45);
+INSERT INTO tbl_members VALUES ('hh019', '하하', 'haha@gmail.com', '010-9900-1123', 46);
+INSERT INTO tbl_members VALUES ('nhc020', '노홍철', 'nohongchul@gmail.com', '010-0011-2234', 44);
+INSERT INTO tbl_members VALUES ('ysh021', '양세형', 'yangsehyung@gmail.com', '010-1122-3345', 37);
+INSERT INTO tbl_members VALUES ('jjh022', '정준하', 'jeongjunha@gmail.com', '010-2233-4456', 45);
+INSERT INTO tbl_members VALUES ('yny023', '유노윤호', 'yunoyunho@gmail.com', '010-3344-5567', 36);
+INSERT INTO tbl_members VALUES ('cgc024', '최강창민', 'choikangchangmin@gmail.com', '010-4455-6679', 35);
+INSERT INTO tbl_members VALUES ('kjs025', '김준수', 'kimjoonsu@gmail.com', '010-5566-7780', 34);
+INSERT INTO tbl_members VALUES ('ywj026', '영웅재중', 'youngwoongjaejoong@gmail.com', '010-6677-8901', 35);
+INSERT INTO tbl_members VALUES ('pyc027', '박유천', 'parkyuchun@gmail.com', '010-7788-9902', 34);
+INSERT INTO tbl_members VALUES ('xjs028', '시아준수', 'xiajunsu@gmail.com', '010-8899-0013', 34);
+INSERT INTO tbl_members VALUES ('hjy029', '한재영', 'hanjaeyoung@gmail.com', '010-9900-1124', 33);
+INSERT INTO tbl_members VALUES ('lmh030', '이민호', 'leeminho@gmail.com', '010-0011-2235', 35);
+INSERT INTO tbl_members VALUES ('ksy031', '김수현', 'kimsoohyun@gmail.com', '010-1122-3346', 34);
+INSERT INTO tbl_members VALUES ('sjk032', '송중기', 'songjoongki@gmail.com', '010-2233-4457', 36);
+INSERT INTO tbl_members VALUES ('pbg033', '박보검', 'parkbogum@gmail.com', '010-3344-5568', 28);
+INSERT INTO tbl_members VALUES ('kdn034', '강다니엘', 'kangdaniel@gmail.com', '010-4455-6680', 25);
+INSERT INTO tbl_members VALUES ('pjh035', '박지훈', 'parkjihoon@gmail.com', '010-5566-7781', 24);
+INSERT INTO tbl_members VALUES ('kjw036', '김재환', 'kimjaehwan@gmail.com', '010-6677-8902', 24);
+INSERT INTO tbl_members VALUES ('osw037', '옹성우', 'ongseongwu@gmail.com', '010-7788-9903', 25);
+INSERT INTO tbl_members VALUES ('hmn038', '황민현', 'hwangminhyun@gmail.com', '010-8899-0014', 26);
+INSERT INTO tbl_members VALUES ('yjs039', '윤지성', 'yoonjisung@gmail.com', '010-9900-1125', 27);
+INSERT INTO tbl_members VALUES ('hsu040', '하성운', 'hasungwoon@gmail.com', '010-0011-2236', 26);

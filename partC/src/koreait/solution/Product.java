@@ -15,7 +15,5 @@ public abstract class Product {
         return "prdName=" + prdName + ", price=" + price;
     }
 
-
-
     
 }

@@ -27,7 +27,7 @@ public abstract class Product1 {
 
     @Override
     public String toString() {
-        return "Product [price=" + price + ", prdName=" + prdName + "]";
+        return "price=" + price + ", prdName=" + prdName + "]";
     }
 
 

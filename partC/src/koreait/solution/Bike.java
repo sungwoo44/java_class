@@ -72,7 +72,7 @@ class Electronics extends Product {
     //10) prodcuct 클래스에서 toString 재정의 한것을 자식 클래스가 다시 재정의 
     @Override
     public String toString() {
-        return "Bike ["+super.toString()+" kwh=" + kwh+ "]";
+        return "Electronics ["+super.toString()+" kwh=" + kwh+ "]";
     }
    
 }
