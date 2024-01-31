@@ -58,7 +58,7 @@ public class CustomerApp {
         System.out.println("우리 쇼핑몰 [정보조회]- 합니다.");
         System.out.print(" 아이디를 입력하세요. __ ");
         customId = System.console().readLine();
-        dao.geCustomVo(customId);
+        dao.getCustomVo(customId);
 
 
     }   //main end
