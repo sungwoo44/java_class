@@ -28,6 +28,7 @@ GROUP BY CUSTOMID ;
 --WHERE NAME LIKE '%길동%';
 
 
+
 SELECT tb.CUSTOMID ,NAME, PCODE ,QUANTITY,BUY_DATE  
 	FROM TBL_BUY tb 
 	JOIN TBL_CUSTOM tc 
@@ -49,6 +50,12 @@ INSERT INTO TBL_BUY
 --ON tb.PCODE = tp.PCODE 
 --WHERE tc.AGE >25;
 --		
+		
+SELECT tc.CUSTOM_ID ,tc.AGE ,t
+FROM TBL_BUY tb 
+JOIN TBL_CUSTOM tc 
+ON tb.CUSTOMID = tc.CUSTOM_ID 
+WHERE tc.AGE >= 25;
 	
 		
 SELECT CUSTOMID , tc.AGE , PNAME 
@@ -67,6 +74,12 @@ SELECT CUSTOMID , tc.AGE , PNAME
 --WHERE tp.PNAME LIKE '%사과%'
 --GROUP BY tb.CUSTOMID ,tb.PCODE;
 
+SELECT tb.CUSTOMID ,tb.PCODE ,sum(tb.QUANTITY* tp.PRICE)
+FROM TBL_PRODUCT tp 
+JOIN TBL_BUY tb   
+ON tp.PCODE = tb.PCODE 
+WHERE tp.PNAME LIKE '%사과%'
+GROUP  BY tb.CUSTOMID ,tb.PCODE;
 
 SELECT tb.CUSTOMID , tb.PCODE , sum(QUANTITY*PRICE)
 	FROM TBL_BUY tb 
@@ -97,7 +110,7 @@ GROUP BY sm.CUSTOMID;
 		
 		
 		
-		
+--A-5. 총 구매합산 금액이 100000~200000 값인 고객 ID를 조회하시오.(김태완)		
 WITH saleMoney
 AS
 (SELECT tb.customid, tp.PCODE, QUANTITY, PRICE, QUANTITY*PRICE "금액"
@@ -109,9 +122,16 @@ FROM saleMoney
 where "금액" BETWEEN 100000 AND 200000
 GROUP BY saleMoney.customid;
 
-
-
-
+WITH saleMoney
+as(
+	SELECT tb.CUSTOMID , QUANTITY*price "금액"
+	FROM TBL_PRODUCT tp ,TBL_BUY tb 
+	WHERE tp.PCODE = tb.PCODE 
+)
+SELECT saleMoney.customid, sum("금액")
+FROM saleMoney
+where "금액" BETWEEN 100000 AND 200000
+GROUP BY saleMoney.customid;
 
 
 
@@ -124,7 +144,12 @@ GROUP BY saleMoney.customid;
 --WHERE tc.AGE BETWEEN 20 AND 29
 --ORDER BY 2;
 
-
+SELECT tc.CUSTOM_ID ,tc.AGE ,tb.PCODE ,top 2
+FROM TBL_CUSTOM tc 
+JOIN TBL_BUY tb 
+ON tc.CUSTOM_ID =tb.CUSTOMID 
+WHERE tc.age BETWEEN 20 AND 29
+ORDER BY 2;
 
 
 
@@ -148,6 +173,14 @@ WHERE tc2.age=(SELECT max(tc.AGE)FROM TBL_CUSTOM tc ,TBL_BUY tb);
 --	JOIN TBL_CUSTOM tc 
 --	ON tb.CUSTOMID = tc.CUSTOM_ID
 --	GROUP BY tc.CUSTOM_ID;
+
+
+SELECT top()
+FROM TBL_CUSTOM tc
+JOIN TBL_BUY tb 
+ON tc.CUSTOM_ID =tb.CUSTOMID 
+WHERE 
+
 
 
 --B-3. 2023년 하반기 구매금액을 고객ID별로 조회하시오. 금액이 높은 순서부터 조회하세요. (노희영)

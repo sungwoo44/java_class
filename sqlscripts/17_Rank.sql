@@ -41,6 +41,13 @@
  GROUP BY tb.CUSTOMID ,tb.PCODE;
 
 
+SELECT tb.CUSTOMID , sum(tb.QUANTITY* tp.PRICE),RANK() over(PARTITION BY tb.CUSTOMID ORDER BY sum(tb.QUANTITY* tp.PRICE)desc)AS "rank"
+FROM TBL_BUY tb ,TBL_PRODUCT tp 
+WHERE tb.PCODE = tp.PCODE 
+GROUP BY tb.CUSTOMID ;
+
+
+
 --5) 4번을 서브쿼리로 하여 rank =1 인 조건을 적용하기
 WITH customTop
 AS

@@ -15,11 +15,11 @@ public class ProductApp {
 
         //2)power  메소드 : electronics 자식 클래스의 메소드 
         //          현재 부모타입으로 참조하는 것을 자식타입으로 변경.
-      
+       
         System.out.println("문제2");
-        Electronics tv = null;
+        // Electronics tv = null;
         if(cart[5] instanceof Electronics){
-             tv = (Electronics)cart[5];
+            Electronics tv = (Electronics)cart[5];
              tv.setKwh(0.9);
              System.out.println(tv.power());
 
@@ -32,6 +32,8 @@ public class ProductApp {
         // -->  반복뭄ㄴ으로 실행할 때 반드시  null 이 아닌 것만 하도록 합니다. 
         // --> null 이면 메소드 실행 예외 발생!  
         
+
+
         System.out.println("문제3");
         for(Product p : cart){
             if(p!=null && p.price>=100000){
@@ -39,7 +41,18 @@ public class ProductApp {
         }
         
         }
+
         
+        Bike bike= null;
+        for(Product p : cart){
+            if(p != null && p instanceof Bike)
+                bike = (Bike)p;
+                System.out.println(bike.ride());
+
+        }
+
+
+
         //4)
         System.out.println("문제4");
         Bike bb= null;

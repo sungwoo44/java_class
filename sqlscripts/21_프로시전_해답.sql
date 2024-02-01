@@ -40,16 +40,6 @@ BEGIN
 END;
 
 
-DECLARE
-    VMONEY NUMBER(8);  		-- 프로시저 실행결과 OUT 매개변수값 저장.
-    vid tbl_custom.custom_id %TYPE;
-    vdate varchar2(20);
-BEGIN
-	vid :='mina012';
-	vdate :='2023-11-10';
-    MONEY_OF_DAY(vid,vdate,vmoney); 
-    -- vid, vdate IN 매개변수에 프로시저 실행 결과를 전달 받습니다.
-    DBMS_OUTPUT.PUT_LINE('고객ID: ' || VID||CHR(10) ||'날짜: '||VDATE);
-    DBMS_OUTPUT.PUT_LINE('고객님의 구매금액은 ' || vmoney|| '입니다.');
-END;
+
+
    

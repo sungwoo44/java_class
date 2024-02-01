@@ -82,6 +82,21 @@ END;
 exec search_custom('mina012');
 
 
+--==========================================================
+SELECT name ,age
+FROM TBL_CUSTOM tc 
+WHERE tc.CUSTOM_ID =(
+	SELECT tb.customid
+	FROM TBL_BUY tb 
+	WHERE quantity = (
+		SELECT Max(quantity) 
+		FROM TBL_BUY tb2 
+	)
+	
+);
+
+-- 복습: 프로시저는 SQL로 만든 프로그램, --> 여러 개의 DML로 구성이 됩니다. PL/SQL 이라고 
+-- 							--> 필요에 따라 조회 결과 저장하는 변수로 사용할수 있다. 
 --저장 프로시저 예제2
 -- 구매 수량이 최대인 고객의 이름, 나이 출력하는 프로시저 : max_custom
 CREATE OR REPLACE PROCEDURE max_custom(  --자바 메소드 인자와 같은 개념

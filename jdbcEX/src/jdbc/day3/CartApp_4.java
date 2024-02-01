@@ -1,5 +1,6 @@
 package jdbc.day3;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -37,12 +38,13 @@ public CartApp_4(){
 
     private void showMenu() {
         System.out.println(".".repeat(70));
-        System.out.println("[C] 카테고리별 상품 조회      [P] 상품명 검색     [M]나의 구매내역");
-        System.out.println("[B] 구매하기   [D] 구매 취소  [Q] 구매 수량 변경  [X] 구매 종료");
+        System.out.println("[C] 카테고리별 상품 조회      [P] 상품명 검색     [M]나의 구매내역   [T]날짜별 결제 금액 조회");
+        System.out.println("[B] 구매하기   [D] 구매 취소  [Q] 구매 수량 변경  [X] 구매 종료 ");
         System.out.println("::장바구니::[A] 담기  [L] 목록  [R] 삭제   [Y] 모두 구매 ");
         System.out.println(".".repeat(70));
     }
 
+    
     private void showMyPage(String customerid) {
         List<CustomBuyVo> result = buyDao.selectCustomBuy(customerid);
                     for(CustomBuyVo vo : result)  
@@ -57,7 +59,7 @@ public CartApp_4(){
                     for (ProductVo vo : productList)
                         System.out.println(vo);
     }
-
+    
     public void searchProductListByPname() {
         System.out.print("상품명 검색어 입력__");
         String pname = System.console().readLine();
@@ -66,6 +68,16 @@ public CartApp_4(){
             System.out.println(vo);
       
     }                    
+
+    public void showMyPay(String customid){
+        System.out.println("고객 ID 와 날짜를 입력하면 총 구매금액을 조회합니다.");
+        System.out.println("구매 날짜 입력_");
+        String buydate = System.console().readLine();
+
+        int dayMoney = buyDao.money_of_dayByCustomer(customid,buydate);
+        System.out.println(String.format("입력 날짜 : %s \n구매 금액: %,-8d",buydate,dayMoney));
+
+    }
 
 //장바구니:   //테이블에 직접추가하지 않고 List 변수 사용 (cart)
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -149,7 +161,10 @@ public CartApp_4(){
                     break;
                 case "C","c":
                     showProductListByCategory();
-                    break;  
+                    break;
+                case "t","T":
+                    showMyPay(customerid);
+                    break;    
                 case "P","p":
                     searchProductListByPname();    
                     break;

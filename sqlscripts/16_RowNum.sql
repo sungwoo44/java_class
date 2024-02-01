@@ -27,9 +27,9 @@ FROM
 	FROM TBL_PRODUCT tp 
 	ORDER BY PRICE DESC
 	)tp
+WHERE rownum <4 ; -- 1~ 4 까지 
 --WHERE rownum = 1;	-- 잘나옴
 --WHERE rownum = 2;	--	값을 못가져옴 rownum 1 이 포함되는 경우만 가능!
---WHERE rownum <4 ; -- 1~ 4 까지 
 --WHERE rownum is not null;
 	
 --5) 중간 일부를 가져오기 위해서 between~and 연산으로 4)번을 대상으로 서브쿼리를 이용해야함.
