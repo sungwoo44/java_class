@@ -86,13 +86,8 @@ public Map<String, Integer> getPriceTable(){
             ) {
                 ResultSet rs =psmt.executeQuery();
                 while(rs.next()){
-
-                    
                     map.put(rs.getString(1),rs.getInt(2));
-
                 }
-
-
         } catch (SQLException e) {
             System.out.println("getPriceTable 예외발생 : "+e.getMessage());
             e.printStackTrace();
