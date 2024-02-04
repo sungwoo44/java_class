@@ -13,9 +13,14 @@ import project.vo.MemberBuyVo;
 
 public class BuyMenuDao {
     
-    public static final String URL = "jdbc:oracle:thin:@//localhost:1521/xe";
-    public static final String USERNAME = "c##idev";
-    private static final String PASSWORD = "1234";
+    // public static final String URL = "jdbc:oracle:thin:@//localhost:1521/xe";
+    // public static final String USERNAME = "c##idev";
+    // private static final String PASSWORD = "1234";
+
+
+    public static final String URL = "jdbc:oracle:thin:@//localhost:51521/xe";
+    public static final String USERNAME = "jacob";
+    private static final String PASSWORD = "oracle";
 
     private Connection getConnection() throws SQLException{
         return DriverManager.getConnection(URL, USERNAME, PASSWORD);
@@ -23,8 +28,8 @@ public class BuyMenuDao {
 
     // 메뉴받기 구매하기 
     public int buy(BuyMenuVo vo){
-        String sql ="insert into tbl_buy_menu(buy_idx,custom_id,menu_id,menu_quantity,buy_date)" 
-        +" values(BURGER_SEQ.nextval,'?','?',?,sysdate)";
+        String sql ="insert into tbl_buy_menu(buy_Idx,customer_id,menu_id,menu_quantity,buy_date)" 
+        +" values(BURGER_SEQ.nextval,?,?,?,sysdate)";
 
         int result=0;
         try (
@@ -46,7 +51,7 @@ public class BuyMenuDao {
 
     
     // 구매취소
-    public int delete(int buy_idx){
+    public int delete(int buy_Idx){
         String sql=" DELETE FROM TBL_BUY_menu  WHERE BUY_IDX = ?";
         int result =0;
         
@@ -54,7 +59,8 @@ public class BuyMenuDao {
             Connection connection = getConnection();
             PreparedStatement pstmt = connection.prepareStatement(sql);
             ) {
-                pstmt.setInt(1, buy_idx);
+                pstmt.setInt(1, buy_Idx);
+                result = pstmt.executeUpdate();
             
         } catch (SQLException e) {
             System.out.println("구매취소 실행 예외발생"+e.getMessage());
@@ -75,6 +81,8 @@ public class BuyMenuDao {
             ) {
                 pstmt.setInt(1, vo.getMenuQuantity());
                 pstmt.setInt(2, vo.getBuyIdx());
+
+                result =pstmt.executeUpdate();
                 
             } catch (SQLException e) {
                 System.out.println("구매변경 실행 예외발생"+e.getMessage());
@@ -85,10 +93,10 @@ public class BuyMenuDao {
         //mypage 기능
         public List<MemberBuyVo> selectMemberBuy(String customer_id) {
             List<MemberBuyVo> list = new ArrayList<>();
-            String sql = "buy_idx,customer_id,mname,menu_id,menu_quantity,buy_Date" +
+            String sql = "select buy_Idx,customer_id,mname,menu_id,menu_quantity,buy_Date" +
             " FROM TBL_BUY_menu bm" +
             " JOIN TBL_menu m" +
-            " ON bm.mcode = m.menu_id" +
+            " ON m.mcode = bm.menu_id" +
             " WHERE bm.customer_id = ? ";
             
             try (
@@ -98,12 +106,12 @@ public class BuyMenuDao {
                     ResultSet rs = pstmt.executeQuery();
                     while (rs.next()) {
                         list.add(new MemberBuyVo(rs.getInt(1),
-                        rs.getString(2),
-                        rs.getString(3),
-                        rs.getString(4),
-                        rs.getInt(5), 
-                        rs.getInt(6), 
-                        rs.getTimestamp(7)));
+                                                rs.getString(2),
+                                                rs.getString(3),
+                                                rs.getString(4),
+                                                rs.getInt(5), 
+                                                rs.getInt(6), 
+                                                rs.getTimestamp(7)));
                     }
                     
                 } catch (SQLException e) {
@@ -111,13 +119,10 @@ public class BuyMenuDao {
                 }
                 return list;
                 
-                
-                
-                
             }
             //장바구니 한번에 insert 실행
             public int allAtOnes(List<BuyMenuVo> cart){
-                String sql = "insert into tbl_buymenu values(burger_seq.nextval,?,?,?,sysdate)";
+                String sql = "insert into tbl_buy_menu values(burger_seq.nextval,?,?,?,sysdate)";
                 Connection connection =null;
                 PreparedStatement pstmt = null;
                 int count=0;
@@ -149,7 +154,6 @@ public class BuyMenuDao {
                         pstmt.close();
                         connection.close();
                     } catch (Exception e) {
-                        // TODO: handle exception
                     }
                 }
                 return count; 

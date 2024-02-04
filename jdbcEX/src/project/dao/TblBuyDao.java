@@ -52,7 +52,9 @@ public class TblBuyDao {
         int result = 0;
         try ( // auto close
                 Connection connection = getConnection();
-                PreparedStatement pstmt = connection.prepareStatement(sql);) {
+                PreparedStatement pstmt = connection.prepareStatement(sql);) 
+        
+                {
             pstmt.setInt(1, buy_idx);
             result = pstmt.executeUpdate();
 

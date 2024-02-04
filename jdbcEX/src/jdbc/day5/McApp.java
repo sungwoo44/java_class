@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.crypto.Mac;
+import javax.sound.midi.MidiDeviceTransmitter;
 
 import project.dao.BuyMenuDao;
 import project.dao.MembersDao;
@@ -29,11 +30,30 @@ public class McApp {
     // 선택 메뉴보기
     private void showMenu() {
         System.out.println("-".repeat(50));
-        System.out.println("[1]구매하기     [2]장바구니  [3]구매내역 [4]메뉴검색 ");
-        System.out.println("[5]장바구니삭제  [6]결제하기  [7]회원가입   [0]GoodBye ");
+        System.out.println("[1]장바구니 담기  [2]장바구니 빼기  [3]장바구니 보기  [4]결제하기 ");
+        System.out.println("[5]구매내역 보기  [6]회원정보 수정  [7]준비중입니다~  [0]GoodBye ");
         System.out.println("-".repeat(50));
     }
 
+    // 장바구니에 담기
+    private void addCartMenu(String customer_id) {
+        System.out.print("구매할 상품코드를 입력하세요__");
+        String menu_id = System.console().readLine();
+        System.out.print("구매할 갯수를 입력하세요__ ");
+        int menu_quantity = Integer.parseInt(System.console().readLine());
+
+        cart.add(new BuyMenuVo(0, customer_id, menu_id, menu_quantity, null));
+    }
+    // 장바구니 빼기
+    private void removeCartMenu() {
+        System.out.println("장바구니 비우기");
+
+        System.out.print("삭제할 번호를 입력하세요__");
+        int index = Integer.parseInt(System.console().readLine());
+        cart.remove(index);
+        System.out.println("제품을 삭제했습니다.");
+
+    }
     // 구매리스트보기
     private void showMyPage(String customerid) {
         List<MemberBuyVo> result = buymenudao.selectMemberBuy(customerid);
@@ -50,15 +70,6 @@ public class McApp {
             System.out.println(vo);
     }
 
-    // 장바구니에 메뉴담기
-    private void addCartMenu(String customer_id) {
-        System.out.print("구매할 상품코드를 입력하세요__");
-        String menu_id = System.console().readLine();
-        System.out.print("구매할 갯수를 입력하세요__ ");
-        int menu_quantity = Integer.parseInt(System.console().readLine());
-
-        cart.add(new BuyMenuVo(0, customer_id, menu_id, menu_quantity, null));
-    }
 
     // 장바구니보기2
     private void showCartList() {
@@ -73,15 +84,6 @@ public class McApp {
         }
     }
 
-    // 장바구니비우기
-    private void removeCartMenu() {
-        System.out.println("장바구니 비우기");
-
-        System.out.print("삭제할 번호를 입력하세요__");
-        int index = Integer.parseInt(System.console().readLine());
-        cart.remove(index);
-
-    }
 
     // 장바구니로 구매
     public void buyCartMenu() {
@@ -99,11 +101,28 @@ public class McApp {
         }
     }
 
-    public void newMembers(){
-        System.out.println("회원가입을 시작합니다.");
-        MembersVo newmember = new MembersVo(null, null, null, null, 0);    
-        
+    public void changeMemberdata(String code){
+
+        System.out.println("회원정보 수정");
+        System.out.print(" 이메일을 입력하세요. __ ");
+        String email = System.console().readLine();
+
+        System.out.print(" 전화번호를 입력하세요. __ ");
+        String ph = System.console().readLine();
+
+        MembersVo vo = new MembersVo(code, null, email, ph, 0);
+        MembersDao dao= new MembersDao();
+        dao.modify(vo);
+
     }
+
+
+
+    // public void newMembers(){
+    //     System.out.println("회원가입을 시작합니다.");
+    //     MembersVo newmember = new MembersVo(null, null, null, null, 0);    
+        
+    // }
 
 
 
@@ -125,14 +144,9 @@ public class McApp {
         String customerid = System.console().readLine();
         System.out.println();
 
-        MembersVo vo = membersDao.getMembersVo(customerid);
-        if(vo==null)
-            System.out.println("회원이 아닙니다 회원가입하세요");
-
-        else
-            System.out.println(vo);
-
-        boolean run = true;
+        //TO-DO 회원유무 파악하기 만들기!
+            
+            boolean run = true;
 
         while (run) {
             showMenu();
@@ -141,25 +155,25 @@ public class McApp {
             String select = System.console().readLine();
             switch (select) {
                 case "1":
-                addCartMenu(customerid);
-                break;
+                    addCartMenu(customerid);                
+                    break;
                 case "2":
-                showCartList();
-                break;
+                    removeCartMenu();
+                    break;
                 case "3":
                     showMyPage(customerid);
                     break;
                 case "4":
-                    searchMenuByMname();
-                    break;
-                case "5":
-                    removeCartMenu();
-                    break;
-                case "6":
                     buyCartMenu();
                     break;
+                case "5":
+                    showCartList();
+                    break;
+                case "6":
+                    changeMemberdata(customerid);
+                    break;
                 case "7":
-                    membersDao.join(vo);
+                    
                     break;
                 case "0":
                     run = false;

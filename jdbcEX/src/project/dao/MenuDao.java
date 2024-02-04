@@ -13,9 +13,13 @@ import java.util.Map;
 import project.vo.MenuVo;
 
 public class MenuDao {
-    public static final String URL="jdbc:oracle:thin:@//localhost:1521/xe";
-    public static final String USERNAME = "c##idev";
-    private static final String PASSWORD = "1234";
+    // public static final String URL="jdbc:oracle:thin:@//localhost:1521/xe";
+    // public static final String USERNAME = "c##idev";
+    // private static final String PASSWORD = "1234";
+
+    public static final String URL = "jdbc:oracle:thin:@//localhost:51521/xe";
+    public static final String USERNAME = "jacob";
+    private static final String PASSWORD = "oracle";
 
 private Connection getConnection() throws SQLException{
         return DriverManager.getConnection(URL,USERNAME,PASSWORD);
@@ -24,7 +28,7 @@ private Connection getConnection() throws SQLException{
     //1) 특정 Mcode에 대한 상품 목록 보여주기
     public List<MenuVo> selectByMcode(String Mcode){
         List<MenuVo> list = new ArrayList<>();
-        String sql = "SELECT * FROM TBL_menu  WHERE mcode = ? order by mname";
+        String sql = "SELECT * FROM TBL_menu  WHERE mcode like '%'||?||'%' order by mcode";
         
 
         try (
@@ -67,30 +71,7 @@ private Connection getConnection() throws SQLException{
         }
         return list;
     }
-    //3) 특정 가격에 대한 상품 목록 보여주기
-    public List<MenuVo> selectByMprice(int mprice){
-        List<MenuVo> list = new ArrayList<>();
-        String sql = "SELECT * FROM TBL_menu  WHERE mprice = ? order by mname";
-        
-
-        try (
-            Connection connection = getConnection();
-            PreparedStatement pstmt = connection.prepareStatement(sql)
-        ) {
-            pstmt.setInt(1, mprice);
-            ResultSet rs = pstmt.executeQuery();
-            while (rs.next()) {
-                list.add(new MenuVo(rs.getString(1), 
-                                    rs.getString(2), 
-                                    rs.getInt(3),
-                                    rs.getString(4)));
-            }
-        } catch (SQLException e) {
-            System.out.println("selectByMprice 예외 발생" + e.getMessage());
-        }
-        return list;
-    }
-
+   
     public Map<String, Integer> getMpriceTable(){
         Map<String, Integer> map = new HashMap<>();
         String sql ="SELECT mcode,mprice from tbl_menu";
@@ -101,7 +82,8 @@ private Connection getConnection() throws SQLException{
         ) {
             ResultSet rs = psmt.executeQuery();
             while(rs.next()){
-                map.put(rs.getString(1),rs.getInt(2));            }
+                map.put(rs.getString(1),rs.getInt(2));
+            }
             
         } catch (SQLException e) {
             System.out.println("getMPriceTable 예외발생 : "+e.getMessage());

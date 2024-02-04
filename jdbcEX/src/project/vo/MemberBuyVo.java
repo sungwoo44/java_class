@@ -22,6 +22,6 @@ public class MemberBuyVo {
     @Override
     public String toString(){
 
-        return String.format("%s  | %s  | %s  | %s  | %d | %d  | %s",buy_idx,customer_id,mname,menu_id,menu_quantity,mprice,buy_Date);
+        return "구매번호"+buy_idx + customer_id+ mname+menu_id+menu_quantity+mprice+buy_Date;
     }
 }
