@@ -22,6 +22,6 @@ public class MemberBuyVo {
     @Override
     public String toString(){
 
-        return "구매번호"+buy_idx + customer_id+ mname+menu_id+menu_quantity+mprice+buy_Date;
+        return "구매번호:"+buy_idx + " 고객아이디:"+customer_id+" 제품이름:"+ mname+" 제품번호:"+menu_id+" 수량"+menu_quantity+" 가격:"+mprice+" 구매날짜:"+buy_Date;
     }
 }

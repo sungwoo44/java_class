@@ -39,7 +39,7 @@ public class MembersVo {
     @Override
     public String toString() {
         return "[아이디=" + code + ", 이름=" + name + ", 이메일=" + email + ", 전화번호=" + phoneNumber
-                + ", 나이=" + age + "]";
+                + ", 나이=" + age + "]\n";
     }
 
     @Override

@@ -76,7 +76,12 @@ public class MenuVo {
     }
     @Override
     public String toString() {
-        return "[제품번호=" + mcode + ", 제품=" + mname + ", 가격=" + mprice + ", 카테고리=" + category + "]";
+        return String.format("제품번호 : %-8s 제품 : %-25s \t가격 : %,6d    카테고리 :%-3s\n", mcode,mname,mprice,category);
+        // return "[제품번호=" + mcode + ", 제품=" + mname + ", 가격=" + mprice + ", 카테고리=" + category + "]\n";
+
+
+
+
     }
 
    

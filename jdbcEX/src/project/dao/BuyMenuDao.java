@@ -10,17 +10,18 @@ import java.util.List;
 
 import project.vo.BuyMenuVo;
 import project.vo.MemberBuyVo;
+import project.vo.MenuVo;
 
 public class BuyMenuDao {
     
-    // public static final String URL = "jdbc:oracle:thin:@//localhost:1521/xe";
-    // public static final String USERNAME = "c##idev";
-    // private static final String PASSWORD = "1234";
+    public static final String URL = "jdbc:oracle:thin:@//localhost:1521/xe";
+    public static final String USERNAME = "C##idev";
+    private static final String PASSWORD = "1234";
 
 
-    public static final String URL = "jdbc:oracle:thin:@//localhost:51521/xe";
-    public static final String USERNAME = "jacob";
-    private static final String PASSWORD = "oracle";
+    // public static final String URL = "jdbc:oracle:thin:@//localhost:51521/xe";
+    // public static final String USERNAME = "jacob";
+    // private static final String PASSWORD = "oracle";
 
     private Connection getConnection() throws SQLException{
         return DriverManager.getConnection(URL, USERNAME, PASSWORD);
@@ -72,7 +73,7 @@ public class BuyMenuDao {
     
     //메뉴 수정하기 
     public int modify(BuyMenuVo vo){
-        String sql="UPDATE TBL_BUY_menu SET menu_QUANTITY =? WHERE BUY_IDX =?";
+        String sql="UPDATE TBL_BUY_menu SET menu_QUANTITY =? WHERE BUY_Index =?";
         int result =0;
         
         try (
@@ -89,15 +90,41 @@ public class BuyMenuDao {
             }
             return result;
         }
+        // 구매목록
+          public List<MenuVo> allMenuList(){
+            List<MenuVo> list = new ArrayList<>();
+            String sql = "select * from tbl_menu";
+
+            try (
+                Connection connection = getConnection();
+                PreparedStatement pstmt = connection.prepareStatement(sql)
+            ) {
+                ResultSet rs = pstmt.executeQuery();
+                while(rs.next()){
+                       list.add(new MenuVo(rs.getString(1),
+                                           rs.getString(2),
+                                           rs.getInt(3),
+                                           rs.getString(4)));
+                }
+
+                System.out.println(list);
+            } catch (SQLException e) {
+                System.out.println("모든 메뉴정보 조회 실행 예외 발생" + e.getMessage());
+                e.printStackTrace();
+            }
+            return list;
+      
+    }
         
         //mypage 기능
         public List<MemberBuyVo> selectMemberBuy(String customer_id) {
             List<MemberBuyVo> list = new ArrayList<>();
-            String sql = "select buy_Idx,customer_id,mname,menu_id,menu_quantity,buy_Date" +
-            " FROM TBL_BUY_menu bm" +
-            " JOIN TBL_menu m" +
-            " ON m.mcode = bm.menu_id" +
-            " WHERE bm.customer_id = ? ";
+            String sql = 
+            "SELECT BUY_INDEX ,CUSTOMER_ID ,tm.MNAME ,tm.MCODE ,TBM.MENU_QUANTITY ,tm.mprice,TBM.BUY_DATE" +
+            " FROM TBL_BUY_MENU tbm" +
+            " JOIN TBL_MENU tm" +
+            " ON tbm.MENU_ID =tm.MCODE" + 
+            " WHERE TBM.CUSTOMER_ID =?";
             
             try (
                 Connection connection = getConnection();
@@ -106,11 +133,11 @@ public class BuyMenuDao {
                     ResultSet rs = pstmt.executeQuery();
                     while (rs.next()) {
                         list.add(new MemberBuyVo(rs.getInt(1),
-                                                rs.getString(2),
-                                                rs.getString(3),
-                                                rs.getString(4),
+                                                rs.getString(2) , 
+                                                rs.getString(3), 
+                                                rs.getString(4), 
                                                 rs.getInt(5), 
-                                                rs.getInt(6), 
+                                                rs.getInt(6),
                                                 rs.getTimestamp(7)));
                     }
                     
