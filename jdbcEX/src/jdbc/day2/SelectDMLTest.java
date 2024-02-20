@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jdbc.day1.OracleConnectionUtil;
-import project.vo.CustomVo;
+import project.vo2.CustomVo;
 
 public class SelectDMLTest {
 

@@ -1,4 +1,4 @@
-package project.vo;
+package project.vo2;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;

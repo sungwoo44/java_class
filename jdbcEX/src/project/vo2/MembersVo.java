@@ -1,4 +1,4 @@
-package project.vo;
+package project.vo2;
 
 public class MembersVo {
     private String code;

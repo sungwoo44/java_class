@@ -10,8 +10,8 @@ import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
-import project.vo.BuyVo;
-import project.vo.CustomBuyVo;
+import project.vo2.BuyVo;
+import project.vo2.CustomBuyVo;
 
 public class TblBuyDao {
 
@@ -24,7 +24,7 @@ public class TblBuyDao {
     }
 
     // 1)구매하기
-    public int buy(BuyVo vo) {
+    public int buy(project.vo2.BuyVo vo) {
         String sql = "insert into tbl_buy(buy_idx,customid,pcode,quantity,buy_date)" +
                 "values(buy_pk_seq.nextval,?,?,?,sysdate)";
         int result = 0;
@@ -68,7 +68,7 @@ public class TblBuyDao {
     }
 
     // 3)구매수량 변경 Pk는 행 식별. 특정 행을 수정하려면 where 조건컬럼 buy_idx(pk)
-    public int modify(BuyVo vo) {
+    public int modify(project.vo2.BuyVo vo) {
         String sql = "UPDATE TBL_BUY SET QUANTITY =? WHERE BUY_IDX =?";
 
         int result = 0;
@@ -90,8 +90,8 @@ public class TblBuyDao {
     }
 
     // mypage 기능 메소드
-    public List<CustomBuyVo> selectCustomBuy(String customid) {
-        List<CustomBuyVo> list = new ArrayList<>();
+    public List<project.vo2.CustomBuyVo> selectCustomBuy(String customid) {
+        List<project.vo2.CustomBuyVo> list = new ArrayList<>();
         String sql = "SELECT buy_idx,tb.PCODE,pname,price,QUANTITY ,BUY_DATE" +
                 " FROM TBL_BUY tb" +
                 " JOIN TBL_PRODUCT tp" +
@@ -104,7 +104,7 @@ public class TblBuyDao {
             pstmt.setString(1, customid);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
-                list.add(new CustomBuyVo(rs.getInt(1),
+                list.add(new project.vo2.CustomBuyVo(rs.getInt(1),
                         rs.getString(2),
                         rs.getString(3),
                         rs.getInt(4),
@@ -149,7 +149,7 @@ public int money_of_dayByCustomer(String customid,String buydate){
     // ㄴ 트랜젝션: 특정 요구사항에 대한 기능을 실행 할 여러 sql 명령들로 구성된 "작업단위"
     //              ㄴ예시) 카트에 저장된 상품중 하나라도 참조값이 없는 Pcode 가 있으면 rollback,
     //                                         모두 정상이면 commit
-    public int insertMany(List<BuyVo> cart) { //여러번 (cart 크기)의 insert를 실행          
+    public int insertMany(List<project.vo2.BuyVo> cart) { //여러번 (cart 크기)의 insert를 실행          
         String sql = "insert into tbl_buy values(buy_pk_seq.nextval,?,?,?,sysdate)";
         Connection connection = null;
         PreparedStatement pstmt = null;
@@ -158,7 +158,7 @@ public int money_of_dayByCustomer(String customid,String buydate){
             connection = getConnection();
             pstmt = connection.prepareStatement(sql);
             connection.setAutoCommit(false);        // auto commit모드 해제 
-            for (BuyVo vo : cart) {
+            for (project.vo2.BuyVo vo : cart) {
                 pstmt.setString(1, vo.getCustomid());
                 pstmt.setString(2, vo.getPcode());
                 pstmt.setInt(3, vo.getQuantity());

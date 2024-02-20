@@ -10,7 +10,7 @@ import java.util.List;
 
 import oracle.jdbc.proxy.annotation.Pre;
 //import project.vo.CustomVo;
-import project.vo.MembersVo;
+import project.vo2.MembersVo;
 
 public class MembersDao {
                                       
@@ -29,7 +29,7 @@ public class MembersDao {
 
 
     //회원가입
-    public void join(MembersVo vo){
+    public void join(project.vo2.MembersVo vo){
         String sql = "insert into tbl_members(code,name,email,phone_number,age)" +
         " values(?,?,?,?,?)"; // insert
 
@@ -105,7 +105,7 @@ public class MembersDao {
 
 
     //회원정보 수정 
-    public void modify(MembersVo vo) {
+    public void modify(project.vo2.MembersVo  vo) {
         String sql = "UPDATE TBL_members SET EMAIL =?,phone_number=? WHERE code =?";
 
         try ( // auto close
@@ -144,9 +144,9 @@ public class MembersDao {
 
 
     //회원 정보가져오기
-    public  MembersVo getMembersVo(String code){
+    public  project.vo2.MembersVo  getMembersVo(String code){
 
-        MembersVo vo = null;
+    	project.vo2.MembersVo  vo = null;
         
         String sql = "select * from tbl_members where code =?";
 
@@ -157,7 +157,7 @@ public class MembersDao {
             pstmt.setString(1, code);
             ResultSet rs= pstmt.executeQuery();
             if(rs.next()){
-                vo = new MembersVo(rs.getString(1),
+                vo = new project.vo2.MembersVo (rs.getString(1),
                                    rs.getString(2),
                                    rs.getString(3),
                                    rs.getString(4), 
@@ -175,9 +175,9 @@ public class MembersDao {
     }
 
     // 관리자를 위한 기능 : 모든 회원정보 조회
-    public List<MembersVo> allMember(){
+    public List<project.vo2.MembersVo > allMember(){
 
-            List<MembersVo> list = new ArrayList<>();
+            List<project.vo2.MembersVo > list = new ArrayList<>();
             String sql = "select * from tbl_members";
 
             try (
@@ -186,7 +186,7 @@ public class MembersDao {
             ) {
                 ResultSet rs = pstmt.executeQuery();
                 while(rs.next()){
-                        list.add(new MembersVo(rs.getString(1), 
+                        list.add(new project.vo2.MembersVo (rs.getString(1), 
                                                rs.getString(2), 
                                                rs.getString(3), 
                                                rs.getString(4), 

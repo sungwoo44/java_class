@@ -8,12 +8,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import project.vo.BuyMenuVo;
-import project.vo.MemberBuyVo;
-import project.vo.MenuVo;
+import project.vo2.MemberBuyVo;
+import project.vo2.BuyMenuVo;
+import project.vo2.MenuVo;
 
 public class BuyMenuDao {
-    
+     
     public static final String URL = "jdbc:oracle:thin:@//localhost:1521/xe";
     public static final String USERNAME = "C##idev";
     private static final String PASSWORD = "1234";

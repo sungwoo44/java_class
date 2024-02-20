@@ -5,7 +5,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.util.Scanner;
 
-import project.vo.CustomVo;
+import project.vo2.CustomVo;
 
 public class InsertDMLTest {
     public static void main(String[] args) {

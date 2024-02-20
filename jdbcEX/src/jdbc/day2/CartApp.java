@@ -1,7 +1,7 @@
 package jdbc.day2;
 
 import project.dao.TblBuyDao;
-import project.vo.BuyVo;
+import project.vo2.BuyVo;
 
 public class CartApp {
     public static void main(String[] args) {

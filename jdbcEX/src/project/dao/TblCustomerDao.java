@@ -11,7 +11,7 @@ import java.util.List;
 
 import jdbc.day1.OracleConnectionUtil;
 import oracle.net.nt.ConnOption;
-import project.vo.CustomVo;
+import project.vo2.CustomVo;
 
 public class TblCustomerDao {
     public static final String URL = "jdbc:oracle:thin:@//localhost:1521/xe";
@@ -23,7 +23,7 @@ public class TblCustomerDao {
     }
 
     // 회원가입
-    public void join(CustomVo vo) {
+    public void join(project.vo2.CustomVo vo) {
 
         String sql = "insert into tbl_custom(custom_id,name,email,age,reg_date)" +
                 "values(?,?,?,?,sysdate)"; // insert
@@ -42,7 +42,7 @@ public class TblCustomerDao {
     }
 
     // 회원정보수정
-    public void modify(CustomVo vo) {
+    public void modify(project.vo2.CustomVo vo) {
         String sql = "UPDATE TBL_CUSTOM SET EMAIL =?,age=? WHERE CUSTOM_ID =?";
 
         try ( // auto close
@@ -79,9 +79,9 @@ public class TblCustomerDao {
     // 회원 정보조회 select * from tbl_custome where custom_id=?
     //                  조회결과가 있다면 only 1개!!!
 
-    public CustomVo getCustomVo(String customerId) {
+    public project.vo2.CustomVo getCustomVo(String customerId) {
         
-        CustomVo vo = null;
+    	project.vo2.CustomVo vo = null;
         String sql = "select * from tbl_custom where custom_id=?";
         
         try (
@@ -92,7 +92,7 @@ public class TblCustomerDao {
             ResultSet rs = pstmt.executeQuery();
             if(rs.next()){ // 조회결과가 있으면 true, 없으면 false
                 //할일 : 객채 만들기 vo 변수에 참조시키기 
-                 vo =new CustomVo(rs.getString(1),
+                 vo =new project.vo2.CustomVo(rs.getString(1),
                                     rs.getString(2), 
                                     rs.getString(3), 
                                     rs.getInt(4),
@@ -111,9 +111,9 @@ public class TblCustomerDao {
     }
 
     // 관리자를 위한 기능: 모든 회원정보 조회 select * from tbl_custome
-    public List<CustomVo> allCustom() {
+    public List<project.vo2.CustomVo> allCustom() {
 
-        List<CustomVo> list = new ArrayList<>();
+        List<project.vo2.CustomVo> list = new ArrayList<>();
         String sql = "select * from tbl_custom";
 
         
@@ -124,7 +124,7 @@ public class TblCustomerDao {
                 ResultSet rs = pstmt.executeQuery();
 
                  while (rs.next()) { 
-                    list.add(new CustomVo(rs.getString(1),
+                    list.add(new project.vo2.CustomVo(rs.getString(1),
                                       rs.getString(2),
                                       rs.getString(3),
                                       rs.getInt(4),

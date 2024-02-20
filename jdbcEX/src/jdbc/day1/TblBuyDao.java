@@ -71,9 +71,12 @@ public class TblBuyDao {
 
             //매개변수 바인딩
             pstmt.executeUpdate();
+    }catch(SQLException e){
+        //close 는 자동
     }
 
     //4)구매 종료
 
 
+    }
 }

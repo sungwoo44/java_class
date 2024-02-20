@@ -13,9 +13,9 @@ import java.util.Map;
 
 import project.dao.TblBuyDao;
 import project.dao.TblProductDao;
-import project.vo.BuyVo;
-import project.vo.CustomBuyVo;
-import project.vo.ProductVo;
+import project.vo2.BuyVo;
+import project.vo2.CustomBuyVo;
+import project.vo2.ProductVo;
 
 // CartApp_4 는 다른 클래스의 상위 클래스로 상속 관계를 만들 수 있다.
 //              ㄴ 단,  main 메소드도 제거하고 
@@ -24,7 +24,7 @@ public class CartApp_4 {
     //이 클래스의 전역변수 선언 - 모든 메소드에서 사용가능
     private TblBuyDao buyDao = new TblBuyDao();
     private TblProductDao productDao = new TblProductDao();
-    private List<BuyVo> cart = new ArrayList<>();       //장바구니
+    private List<project.vo2.BuyVo> cart = new ArrayList<>();       //장바구니
     private Map<String,Integer> priceMap =null;
    
     //할일1. getPriceTable 메소드 구현
@@ -46,8 +46,8 @@ public CartApp_4(){
 
     
     private void showMyPage(String customerid) {
-        List<CustomBuyVo> result = buyDao.selectCustomBuy(customerid);
-                    for(CustomBuyVo vo : result)  
+        List<project.vo2.CustomBuyVo> result = buyDao.selectCustomBuy(customerid);
+                    for(project.vo2.CustomBuyVo vo : result)  
                             System.out.println(vo);
     }
 
@@ -55,16 +55,16 @@ public CartApp_4(){
         System.out.println("카테고리 : A1-과일 A2-수입과일  B1-인스턴스  B2-선물세트 C1-과자류");
         System.out.print("카테고리 입력__");
         String category = System.console().readLine();
-                    List<ProductVo> productList = productDao.selectByCategory(category);
-                    for (ProductVo vo : productList)
+                    List<project.vo2.ProductVo> productList = productDao.selectByCategory(category);
+                    for (project.vo2.ProductVo vo : productList)
                         System.out.println(vo);
     }
     
     public void searchProductListByPname() {
         System.out.print("상품명 검색어 입력__");
         String pname = System.console().readLine();
-        List<ProductVo> productList1 = productDao.selectByPname(pname);
-        for (ProductVo vo : productList1)
+        List<project.vo2.ProductVo> productList1 = productDao.selectByPname(pname);
+        for (project.vo2.ProductVo vo : productList1)
             System.out.println(vo);
       
     }                    
@@ -88,7 +88,7 @@ public CartApp_4(){
         System.out.print("구매할 수량 입력하세요.__");
         int quantity = Integer.parseInt(System.console().readLine());
 
-        cart.add(new BuyVo(0, customerid, pcode, quantity, null));
+        cart.add(new project.vo2.BuyVo(0, customerid, pcode, quantity, null));
         
      }
 

@@ -4,13 +4,13 @@ import java.util.List;
 
 import project.dao.TblBuyDao;
 import project.dao.TblProductDao;
-import project.vo.BuyVo;
-import project.vo.CustomerBuyVo;
-import project.vo.ProductVo;
+import project.vo2.BuyVo;
+import project.vo2.CustomBuyVo;
+import project.vo2.ProductVo;
 
 //static이 많아지면 상속의 특징을 사용할 수 없다. 멀티스레드 환경애도 부적합
 //  =>여기서는 테스트를 위해 static 사용
-public class CartApp_2 {
+public class CartApp2 {
 
     public static void showMenu() {
         System.out.println(".".repeat(50));
@@ -37,8 +37,8 @@ public class CartApp_2 {
             String select = System.console().readLine();
             switch (select) {
                 case "M", "m": // 나의 구매내역
-                    List<CustomerBuyVo> result = buyDao.selectCustomerBuyList(customerid);
-                    for (CustomerBuyVo vo : result)
+                    List<project.vo2.CustomBuyVo> result = buyDao.selectCustomerBuyList(customerid);
+                    for (project.vo2.CustomBuyVo vo : result)
                         System.out.println(vo);
                     break;
                 case "C", "c":

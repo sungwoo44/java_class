@@ -5,7 +5,7 @@ import java.util.List;
 
 import project.dao.TblBuyDao;
 import project.dao.TblProductDao;
-import project.vo.BuyVo;
+import project.vo2.BuyVo;
 
 //CartApp_3 클래스는 오직 개발 프로그램을 실행하는 main 메소드를 중심으로 이것에 필요한
 //                   메소드를 private static 특성으로 만들었습니다.

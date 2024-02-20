@@ -4,9 +4,9 @@ import java.util.List;
 
 import project.dao.TblBuyDao;
 import project.dao.TblProductDao;
-import project.vo.BuyVo;
-import project.vo.CustomBuyVo;
-import project.vo.ProductVo;
+import project.vo2.BuyVo;
+import project.vo2.CustomBuyVo;
+import project.vo2.ProductVo;
 
 //static 이 많아지면 상속의 특징을 사용할수 없습니다. 멀티 스레드 환경에 적합하지 않습니다.
 //                              --> 여기서는 테스트를 위해  static 사용 중입니다.

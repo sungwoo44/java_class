@@ -10,17 +10,17 @@ import javax.sound.midi.MidiDeviceTransmitter;
 import project.dao.BuyMenuDao;
 import project.dao.MembersDao;
 import project.dao.MenuDao;
-import project.vo.BuyMenuVo;
-import project.vo.BuyVo;
-import project.vo.MemberBuyVo;
-import project.vo.MembersVo;
-import project.vo.MenuVo;
+import project.vo2.BuyMenuVo;
+import project.vo2.BuyVo;
+import project.vo2.MemberBuyVo;
+import project.vo2.MembersVo;
+import project.vo2.MenuVo;
 
 public class McApp {
     private MembersDao membersDao = new MembersDao();
     private BuyMenuDao buymenudao = new BuyMenuDao();
     private MenuDao menudao = new MenuDao();
-    private List<BuyMenuVo> cart = new ArrayList<>();
+    private List<project.vo2.BuyMenuVo> cart = new ArrayList<>();
     private Map<String, Integer> priceMap = null;
 
     public McApp() {
@@ -48,7 +48,7 @@ public class McApp {
         System.out.print("구매할 갯수를 입력하세요__ ");
         int menu_quantity = Integer.parseInt(System.console().readLine());
 
-        cart.add(new BuyMenuVo(0, customer_id, menu_id, menu_quantity, null));
+        cart.add(new project.vo2.BuyMenuVo(0, customer_id, menu_id, menu_quantity, null));
     }
     // 장바구니 빼기
     private void removeCartMenu() {
@@ -67,8 +67,8 @@ public class McApp {
     }
     // 구매내역보기
     private void showMyPage(String customerid) {
-        List<MemberBuyVo> result = buymenudao.selectMemberBuy(customerid);
-        for (MemberBuyVo vo : result)
+        List<project.vo2.MemberBuyVo> result = buymenudao.selectMemberBuy(customerid);
+        for (project.vo2.MemberBuyVo vo : result)
             System.out.println(vo);
     }
 
@@ -76,8 +76,8 @@ public class McApp {
     private void searchMenuByMname() {
         System.out.print("상품명을 입력하세요___");
         String Mname = System.console().readLine();
-        List<MenuVo> menulist = menudao.selectByMname(Mname);
-        for (MenuVo vo : menulist)
+        List<project.vo2.MenuVo> menulist = menudao.selectByMname(Mname);
+        for (project.vo2.MenuVo vo : menulist)
             System.out.println(vo);
     }
 
@@ -85,8 +85,8 @@ public class McApp {
 
         System.out.print(" 카테고리를 입력하세요___");
         String category = System.console().readLine();
-        List<MenuVo> menulist = menudao.selectByCategory(category);
-        for (MenuVo vo : menulist)
+        List<project.vo2.MenuVo> menulist = menudao.selectByCategory(category);
+        for (project.vo2.MenuVo vo : menulist)
             System.out.println(vo);
     }
 
@@ -137,7 +137,7 @@ public class McApp {
         System.out.print(" 전화번호를 입력하세요. __ ");
         String ph = System.console().readLine();
 
-        MembersVo vo = new MembersVo(code, null, email, ph, 0);
+        project.vo2.MembersVo vo = new project.vo2.MembersVo(code, null, email, ph, 0);
         MembersDao dao= new MembersDao();
         dao.modify(vo);
 
@@ -145,7 +145,7 @@ public class McApp {
 
     public void changeMenuQuntity(){
         System.out.println("구매 수량 변경하기 ");
-        BuyMenuVo vo = new BuyMenuVo(0, null, null, 0, null);
+        project.vo2.BuyMenuVo vo = new project.vo2.BuyMenuVo(0, null, null, 0, null);
                     System.out.println("변경할 상품의 buy_idx 입력___");
                     int buy_idx = Integer.parseInt(System.console().readLine());
                     System.out.println("변경할 상품의 코드 입력___");
@@ -156,7 +156,7 @@ public class McApp {
                     int meun_quantity = Integer.parseInt(System.console().readLine());
 
                     // Call the modify method with the new quantity
-                    vo = new BuyMenuVo(buy_idx,null, menuid, meun_quantity, null);
+                    vo = new project.vo2.BuyMenuVo(buy_idx,null, menuid, meun_quantity, null);
                   
 
                     if(buymenudao.modify(vo)==1)

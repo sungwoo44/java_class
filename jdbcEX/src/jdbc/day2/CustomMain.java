@@ -1,7 +1,7 @@
 package jdbc.day2;
 
 import project.dao.TblCustomerDao;
-import project.vo.CustomVo;
+import project.vo2.CustomVo;
 
 public class CustomMain {
     public static void main(String[] args) {
